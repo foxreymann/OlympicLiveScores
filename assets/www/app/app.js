@@ -1,4 +1,9 @@
 document.addEventListener("deviceready", function () {
+    start();
+ }, false);
+
+
+var start = function() {
 
     Ext.Loader.setConfig({ enabled: true });
 
@@ -48,6 +53,10 @@ document.addEventListener("deviceready", function () {
 
       /*  }
     });*/
+}
+setTimeout ( start(), 1000 );
+
+    console.log('start');
 
     Ext.define('HelloWorld.view.SimpleList', {
         extend: 'Ext.Panel',	
@@ -59,7 +68,7 @@ document.addEventListener("deviceready", function () {
                 layout: 'fit', //fullscreen: true, 
                 height: '200',
                 store: 'Stations',
-                itemTpl: '{id} :: {name}'
+                itemTpl: '{title} :: {icon}'
                 }
             ]		
         }, 
@@ -71,13 +80,14 @@ document.addEventListener("deviceready", function () {
 
     Ext.define('HelloWorld.model.Station', {
         extend: 'Ext.data.Model',
-        fields: ['id', 'name'],
+        fields: ['title', 'url','icon'],
         proxy: {
-            type: 'ajax',
-            url: 'data/stations.json',
+            type: 'jsonp',
+           url : 'https://raw.github.com/tomaszjureczko/OlympicLiveScoresAPI/master/games.json',
+            callbackKey: 'callback',
             reader: {
                 type: 'json',
-                root: 'results' 
+                root: 'games' 
             }
         }
     });
@@ -191,5 +201,3 @@ document.addEventListener("deviceready", function () {
         model: 'HelloWorld.model.Station',
         autoLoad: true
     });
-
- }, false);
