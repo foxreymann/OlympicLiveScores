@@ -12,36 +12,40 @@
     <script type="text/javascript" src="jquery.jsonp-2.2.0.js"></script>
     <script>
         // HTML templates
-        var games = function(url) {
-            localStorage['gamesUrl'] = url;
-            window.location = 'games.html';
+        var scores = function(url) {
+            localStorage['scoresUrl'] = url;
+            window.location = 'scores.html';
         }
-        
 
-        var gameTemplate = '<li onclick=\'games("{url}")\'><a><img class="ui-li-thumb ui-corner-tl" src="games/{icon}"/>{title}</a></li>'; 
+        var gameTemplate = '<li onclick=\'scores("{link}")\'><a><h3>{title}</h3><p>{description}</p></a></li>'; 
+        
         var Ext = {};
         Ext.util = {};
         Ext.util.JSONP = {};
         Ext.util.JSONP.callback = function(results) {
+            console.log(results);
             var listHtml = '';
-            $(results.games).each(function(index) {
-                this.url = unescape(this.url);
+            $(results.items).each(function(index) {
+                this.link = unescape(this.link);
+                this.link = this.link.replace(".html", ".json"); 
                 listHtml = listHtml + gameTemplate.supplant(this);
             });
+console.log(listHtml);
             $('ul').html(listHtml);
             $('ul').listview('refresh') 
         } 
 
         var start = function() {
             console.log('start');
+            var params = (window.location.href.split("?")[1] || "").split("&");
             $.jsonp({
-                url: "https://raw.github.com/tomaszjureczko/OlympicLiveScoresAPI/master/games.json"
-            }); 
+                url: localStorage['gamesUrl']
+            });
         }
     </script>
 </head>
 <body>
-   <div data-role="page" data-theme="c" id="sports">
+   <div data-role="page" data-theme="c" id="games">
 
         <div data-role="header" role="banner" class="ui-header ui-bar-f">
             <h1>Olympic Live Scores</h1>
