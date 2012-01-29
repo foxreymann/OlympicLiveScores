@@ -21,15 +21,7 @@
             console.log(results);
             $('h1').html(results.title);
             $('ul li').html(results.scores); 
-/*            var listHtml = '';
-            $(results.items).each(function(index) {
-                this.link = unescape(this.link);
-                this.link = this.link.replace(".html", ".json"); 
-                listHtml = listHtml + gameTemplate.supplant(this);
-            });
-console.log(listHtml);
-            $('ul').html(listHtml);
-            $('ul').listview('refresh')*/
+            $('ul').listview('refresh');
         } 
 
         var start = function() {

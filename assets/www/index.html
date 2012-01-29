@@ -12,13 +12,14 @@
     <script type="text/javascript" src="jquery.jsonp-2.2.0.js"></script>
     <script>
         // HTML templates
-        var games = function(url) {
+        var games = function(url,title) {
             localStorage['gamesUrl'] = url;
+            localStorage['gamesTitle'] = title;
             window.location = 'games.html';
         }
         
 
-        var gameTemplate = '<li onclick=\'games("{url}")\'><a><img class="ui-li-thumb ui-corner-tl" src="games/{icon}"/>{title}</a></li>'; 
+        var gameTemplate = '<li onclick=\'games("{url}","{title}")\'><a><img class="ui-li-thumb ui-corner-tl" src="games/{icon}"/>{title}</a></li>'; 
         var Ext = {};
         Ext.util = {};
         Ext.util.JSONP = {};

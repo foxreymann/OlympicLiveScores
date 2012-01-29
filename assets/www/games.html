@@ -23,14 +23,13 @@
         Ext.util = {};
         Ext.util.JSONP = {};
         Ext.util.JSONP.callback = function(results) {
-            console.log(results);
+            $('h1').html(localStorage['gamesTitle']);
             var listHtml = '';
             $(results.items).each(function(index) {
                 this.link = unescape(this.link);
                 this.link = this.link.replace(".html", ".json"); 
                 listHtml = listHtml + gameTemplate.supplant(this);
             });
-console.log(listHtml);
             $('ul').html(listHtml);
             $('ul').listview('refresh') 
         } 
@@ -48,7 +47,7 @@ console.log(listHtml);
    <div data-role="page" data-theme="c" id="games">
 
         <div data-role="header" role="banner" class="ui-header ui-bar-f">
-            <h1>Olympic Live Scores</h1>
+            <h1></h1>
         </div><!-- /header -->
 
         <div data-role="content">
