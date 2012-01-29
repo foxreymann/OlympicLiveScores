@@ -12,11 +12,6 @@
     <script type="text/javascript" src="jquery.jsonp-2.2.0.js"></script>
     <script>
         // HTML templates
-        var scores = function(url) {
-            localStorage['scoresUrl'] = url;
-            window.location = 'scores.html';
-        }
-
         var gameTemplate = '<li onclick=\'scores("{link}")\'><a><h3>{title}</h3><p>{description}</p></a></li>'; 
         
         var Ext = {};
@@ -24,7 +19,9 @@
         Ext.util.JSONP = {};
         Ext.util.JSONP.callback = function(results) {
             console.log(results);
-            var listHtml = '';
+            $('h1').html(results.title);
+            $('ul li').html(results.scores); 
+/*            var listHtml = '';
             $(results.items).each(function(index) {
                 this.link = unescape(this.link);
                 this.link = this.link.replace(".html", ".json"); 
@@ -32,14 +29,14 @@
             });
 console.log(listHtml);
             $('ul').html(listHtml);
-            $('ul').listview('refresh') 
+            $('ul').listview('refresh')*/
         } 
 
         var start = function() {
             console.log('start');
             var params = (window.location.href.split("?")[1] || "").split("&");
             $.jsonp({
-                url: localStorage['gamesUrl']
+                url: localStorage['scoresUrl']
             });
         }
     </script>
@@ -48,11 +45,12 @@ console.log(listHtml);
    <div data-role="page" data-theme="c" id="games">
 
         <div data-role="header" role="banner" class="ui-header ui-bar-f">
-            <h1>Olympic Live Scores</h1>
+            <h1></h1>
         </div><!-- /header -->
 
         <div data-role="content">
             <ul data-role="listview" data-inset="true">
+                <li></li>
             </ul> 
         </div><!-- /content -->
 
